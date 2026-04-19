@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "drf_spectacular",
     "project",
     "stripe",
 ]
@@ -129,6 +131,14 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+}
+
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -144,3 +154,7 @@ LOGGING = {
         },
     },
 }
+
+
+STRIPE_BASE_URL = os.environ["STRIPE_BASE_URL"]
+STRIPE_SECRET = os.environ["STRIPE_SECRET"]

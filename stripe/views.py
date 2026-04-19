@@ -1,1 +1,44 @@
-# from django.shortcuts import render
+from django.conf import settings
+from rest_framework import serializers
+from rest_framework.generics import GenericAPIView
+from rest_framework.response import Response
+
+import stripe
+
+from . import models as m
+
+stripe.api_key = settings.STRIPE_SECRET  # type: ignore
+
+
+class BuySerializer(serializers.Serializer):
+    session_id = serializers.CharField()
+
+
+class BuyView(GenericAPIView):
+    serializer_class = BuySerializer
+    queryset = m.Item.objects.all()  # type: ignore
+    lookup_field = "id"
+
+    def get(self, _request, *_args, **_kwargs):
+        instance: m.Item = self.get_object()
+        session = stripe.checkout.Session.create(  # type: ignore
+            payment_method_types=["card"],
+            line_items=[
+                {
+                    "price_data": {
+                        "currency": "usd",
+                        "product_data": {
+                            "name": instance.name,
+                            "description ": instance.description,
+                            "metadata": {"id": instance.id},
+                        },
+                        "unit_amount_decimal": str(instance.price),
+                    },
+                    "quantity": 1,
+                },
+            ],
+            mode="payment",
+            success_url=f"{settings.STRIPE_BASE_URL}/success/",
+            cancel_url=f"{settings.STRIPE_BASE_URL}/cancel/",
+        )
+        return Response(self.get_serializer({"session_id": session.id}).data)
