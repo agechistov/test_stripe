@@ -1,5 +1,5 @@
 db:
-	docker-compose up -d db redis
+	docker-compose up -d db
 
 tools:
 	ruff format

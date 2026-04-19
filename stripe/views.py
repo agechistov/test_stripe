@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.views.generic import DetailView
 from rest_framework import serializers
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
@@ -42,3 +43,14 @@ class ItemBuyView(GenericAPIView):
             cancel_url=settings.STRIPE_CANCEL_URL,
         )
         return Response(self.get_serializer({"session_id": session.id}).data)
+
+
+class ItemDetailView(DetailView):
+    model = m.Item
+    template_name = "item_detail.html"
+    context_object_name = "item"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["STRIPE_PUBLISHABLE_KEY"] = settings.STRIPE_PUBLISHABLE_KEY
+        return context
