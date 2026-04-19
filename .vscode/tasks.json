@@ -1,4 +1,11 @@
 {
   "version": "2.0.0",
-  "tasks": []
+  "tasks": [
+    {
+      "label": "for_up",
+      "type": "shell",
+      "command": "make for_up",
+      "hide": true
+    }
+  ]
 }

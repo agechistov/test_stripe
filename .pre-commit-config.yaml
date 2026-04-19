@@ -57,7 +57,7 @@ repos:
         stages: [pre-commit, pre-merge-commit, manual]
       - id: django-check
         name: django-check
-        entry: uv run python project/manage.py check
+        entry: uv run python manage.py check
         language: system
         require_serial: true
         pass_filenames: false
@@ -65,7 +65,7 @@ repos:
         stages: [pre-commit, pre-merge-commit, manual]
       - id: django-makemigrations-check
         name: django-makemigrations-check
-        entry: uv run python project/manage.py makemigrations --check
+        entry: uv run python manage.py makemigrations --check
         language: system
         require_serial: true
         pass_filenames: false
