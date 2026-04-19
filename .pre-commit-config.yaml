@@ -1,0 +1,65 @@
+# https://pre-commit.com/
+default_install_hook_types:
+  - pre-commit
+  - pre-push
+repos:
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: python-no-eval
+        name: 'Prohibited: "nocheckin"'
+        entry: "nocheckin"
+        language: pygrep
+        files: ^(?!.pre-commit-config).*\.(h|c|hpp|cpp|json|jsonc|yaml|yml|txt|py|md|toml|cfg|gd)$
+        types: []
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.9.29
+    hooks:
+      - id: uv-lock
+      - id: uv-export
+        args: ["--frozen", "--output-file=requirements.txt", "--quiet"]
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier
+        entry: prettier --parser json --write
+        language: system
+        require_serial: true
+        files: \.(json|ldtk)$
+        stages: [pre-commit, pre-merge-commit, manual]
+      - id: ruff-format
+        name: ruff format
+        entry: uv run ruff format
+        language: system
+        require_serial: true
+        files: \.py$
+        stages: [pre-commit, pre-merge-commit, manual]
+      - id: ruff-check
+        name: ruff check
+        entry: uv run ruff check --output-format=concise
+        language: system
+        require_serial: true
+        files: \.py$
+        stages: [pre-commit, pre-merge-commit, manual]
+      - id: pyright
+        name: pyright
+        entry: uv run pyright
+        language: system
+        require_serial: true
+        files: \.py$
+        stages: [pre-commit, pre-merge-commit, manual]
+      - id: ty-check
+        name: ty check
+        entry: uv run ty check . --output-format=concise --no-progress
+        language: system
+        require_serial: true
+        files: \.py$
+        stages: [pre-commit, pre-merge-commit, manual]
+      # - id: pytest
+      #   name: pytest
+      #   entry: uv run pytest
+      #   language: system
+      #   require_serial: true
+      #   always_run: true
+      #   pass_filenames: false
+      #   stages: [pre-commit, pre-merge-commit, manual]
