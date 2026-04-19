@@ -4,5 +4,5 @@ from . import models as m
 
 
 @admin.register(m.Item)
-class AuthorAdmin(admin.ModelAdmin):
+class ItemAdmin(admin.ModelAdmin):
     pass

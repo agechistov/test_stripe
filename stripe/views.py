@@ -7,14 +7,14 @@ import stripe
 
 from . import models as m
 
-stripe.api_key = settings.STRIPE_SECRET  # type: ignore
+stripe.api_key = settings.STRIPE_SECRET_KEY  # type: ignore
 
 
 class BuySerializer(serializers.Serializer):
     session_id = serializers.CharField()
 
 
-class BuyView(GenericAPIView):
+class ItemBuyView(GenericAPIView):
     serializer_class = BuySerializer
     queryset = m.Item.objects.all()  # type: ignore
     lookup_field = "id"
@@ -38,7 +38,7 @@ class BuyView(GenericAPIView):
                 },
             ],
             mode="payment",
-            success_url=f"{settings.STRIPE_BASE_URL}/success/",
-            cancel_url=f"{settings.STRIPE_BASE_URL}/cancel/",
+            success_url=settings.STRIPE_SUCCESS_URL,
+            cancel_url=settings.STRIPE_CANCEL_URL,
         )
         return Response(self.get_serializer({"session_id": session.id}).data)
