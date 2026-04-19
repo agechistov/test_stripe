@@ -1,5 +1,6 @@
 services:
   project:
+    build: .
     env_file: .env
     environment:
       - POSTGRES_HOST=db

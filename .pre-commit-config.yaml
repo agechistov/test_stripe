@@ -55,9 +55,17 @@ repos:
         require_serial: true
         files: \.py$
         stages: [pre-commit, pre-merge-commit, manual]
-      - id: django-admin-check
-        name: django-admin check
+      - id: django-check
+        name: django-check
         entry: uv run python project/manage.py check
+        language: system
+        require_serial: true
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit, pre-merge-commit, manual]
+      - id: django-makemigrations-check
+        name: django-makemigrations-check
+        entry: uv run python project/manage.py makemigrations --check
         language: system
         require_serial: true
         pass_filenames: false
