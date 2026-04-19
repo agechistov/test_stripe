@@ -1,0 +1,33 @@
+{
+  "files.exclude": {
+    "node_modules": true,
+    "uv.lock": true
+  },
+  "search.exclude": {
+    "node_modules": true,
+    "uv.lock": true
+  },
+  "files.associations": {
+    ".prettierrc": "json"
+  },
+  "runOnSave.commands": [
+    {
+      "match": "\\.json$",
+      "command": "prettier -w ${file}"
+    },
+    {
+      "match": "\\.pyi?$",
+      "command": "uv run ruff format ${file} && uv run ruff check --select I ${file} --fix",
+      "async": false
+    }
+  ],
+  "python.testing.pytestArgs": [
+    "."
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "launches": {
+    "run_f4": "main",
+    "run_f5": "main"
+  }
+}

@@ -55,6 +55,14 @@ repos:
         require_serial: true
         files: \.py$
         stages: [pre-commit, pre-merge-commit, manual]
+      - id: django-admin-check
+        name: django-admin check
+        entry: uv run python project/manage.py check
+        language: system
+        require_serial: true
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit, pre-merge-commit, manual]
       # - id: pytest
       #   name: pytest
       #   entry: uv run pytest

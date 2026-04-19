@@ -10,22 +10,30 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+from dotenv import load_dotenv
+
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
+SECRET_KEY = os.environ["DJANGO_SECRET"]
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-5+t(y0xt#wv*_z3=kxbgesz+@la(%wmjrt=3_&)mqp=b_w*py9"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+def _env_bool(name: str) -> bool:
+    return os.getenv(name, "false").lower() in ("true", "1", "yes", "y")
 
-ALLOWED_HOSTS = []
+
+DEBUG = _env_bool("DEBUG")
+DONT_USE_IN_PRODUCTION__INIT_FROM_EXCEL_TRUNCATES_TABLES = _env_bool(
+    "DONT_USE_IN_PRODUCTION__INIT_FROM_EXCEL_TRUNCATES_TABLES",
+)
+DONT_USE_IN_PRODUCTION__DISABLE_CACHE = _env_bool(
+    "DONT_USE_IN_PRODUCTION__DISABLE_CACHE",
+)
 
 
 # Application definition
@@ -37,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "project",
 ]
 
 MIDDLEWARE = [
@@ -74,9 +83,13 @@ WSGI_APPLICATION = "project.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ["POSTGRES_DB"],
+        "USER": os.environ["POSTGRES_USER"],
+        "PASSWORD": os.environ["POSTGRES_PASSWORD"],
+        "HOST": os.environ["POSTGRES_HOST"],
+        "PORT": os.environ["POSTGRES_PORT"],
+    },
 }
 
 
@@ -103,11 +116,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -115,3 +125,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "project": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+    },
+}
