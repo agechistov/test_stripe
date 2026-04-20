@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_spectacular",
     "project",
-    "stripe",
+    "app_stripe",
 ]
 
 MIDDLEWARE = [
