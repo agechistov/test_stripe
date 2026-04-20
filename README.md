@@ -2,7 +2,7 @@
 
 ## Хостинг
 
-TODO
+- Хостится на https://195.133.39.165:8000/admin/
 
 ## Отличия от задания
 
@@ -12,12 +12,12 @@ TODO
 
     ![](docs/redirect_order.png)
 
-- Ссылки для покупки item-а заменил с `/buy/{id}` на `/buy/item/{id}`, чтобы добавить покупку заказов `/buy/order/{id}`
+- Ссылку для покупки item-а заменил с `/buy/{id}` на `/buy/item/{id}` и добавил аналогичную ссылку для покупки заказов `/buy/order/{id}`
 
 ## Локальный запуск
 
-1. Скопировать .env_example в .env
-2. Проставить значения STRIPE_PUBLISHABLE_KEY, STRIPE_SECRET_KEY
+1. `cp .env_example .env`
+2. Проставить там `STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`
 3. `docker-compose up`
 
 ## Задание
