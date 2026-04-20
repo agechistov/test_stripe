@@ -7,19 +7,9 @@
     <h1>{{ item.name }}</h1>
     <p>{{ item.description }}</p>
     <p>{{ item.price }}</p>
-    <!-- <button id="buy-button">Buy</button> -->
     <form action="/buy/{{ item.id }}" method="POST">
       {% csrf_token %}
       <button type="submit">Buy</button>
     </form>
-    <!-- <script type="text/javascript">
-      var stripe = Stripe('{{ STRIPE_PUBLISHABLE_KEY }}');
-      var buyButton = document.getElementById('buy-button');
-      buyButton.addEventListener('click', function() {
-        fetch('/buy/{{ item.id }}', { method: 'GET' })
-          .then(response => response.json())
-          .then(v => stripe.redirectToCheckout({ sessionId: v.session_id }));
-      });
-    </script> -->
   </body>
 </html>

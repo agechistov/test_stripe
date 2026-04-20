@@ -30,8 +30,8 @@ class ItemBuyView(GenericAPIView):
                 },
             ],
             mode="payment",
-            success_url="http://change.me/",
-            cancel_url="http://change.me/",
+            success_url="https://google.com/",
+            cancel_url="https://google.com/",
         )
         return redirect(session.url, code=303)
 
