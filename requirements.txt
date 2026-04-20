@@ -69,6 +69,9 @@ django==6.0.4 \
     #   djangorestframework
     #   drf-spectacular
     #   test-stripe
+django-types==0.23.0 \
+    --hash=sha256:0727b13ae810c4b1f14eeac9872834ac928c99dc76584ea7c23afc4461e049dd \
+    --hash=sha256:f97fb746166fb15a5f40e470a1fd7a58226349aac9e0a9cb8ae81deb14d94fd0
 djangorestframework==3.17.1 \
     --hash=sha256:a6def5f447fe78ff853bff1d47a3c59bf38f5434b031780b351b0c73a62db1a5 \
     --hash=sha256:c3c74dd3e83a5a3efc37b3c18d92bd6f86a6791c7b7d4dff62bb068500e76457
@@ -280,6 +283,10 @@ ty==0.0.31 \
     --hash=sha256:c906354ce441e342646582bc9b8f48a676f79f3d061e25de15ff870e015ca14e \
     --hash=sha256:d4b207eddcfbafd376132689d3435b14efcb531289cb59cd961c6a611133bd54 \
     --hash=sha256:e9cb15fad26545c6a608f40f227af3a5513cb376998ca6feddd47ca7d93ffafa
+types-psycopg2==2.9.21.20260408 \
+    --hash=sha256:49b086bfc9e0ce901c6537403ead1c19c75275571040b037af0248a8e48c322f \
+    --hash=sha256:bb65cd12f53b6633077fd782607a33065e1f3bf585219c9f786b61ad2b72211c
+    # via django-types
 typing-extensions==4.15.0 \
     --hash=sha256:0cea48d173cc12fa28ecabc3b837ea3cf6f38c6d1136f85cbaaf598984861466 \
     --hash=sha256:f0fa19c6845758ab08074a0cfa8b7aecb71c999ca73d62883bc25cc018c4e548
