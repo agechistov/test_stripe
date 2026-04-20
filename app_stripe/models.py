@@ -26,7 +26,25 @@ class Item(m.Model):
         return f"{self.name}, {self.price}, {self.currency.value}"
 
 
+class Discount(m.Model):
+    percent = m.DecimalField(max_digits=5, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.percent}%"
+
+
+class Tax(m.Model):
+    percent = m.DecimalField(max_digits=5, decimal_places=2)
+    stripe_tax_rate_id = m.CharField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.percent}%"
+
+
 class Order(m.Model):
+    discount = m.ForeignKey(Discount, null=True, blank=True, on_delete=m.SET_NULL)
+    tax = m.ForeignKey(Tax, null=True, blank=True, on_delete=m.SET_NULL)
+
     if TYPE_CHECKING:
         items: "RelatedManager[OrderItem]"
 

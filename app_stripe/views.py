@@ -1,3 +1,5 @@
+import typing as t
+
 import stripe
 from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect
@@ -50,6 +52,17 @@ class OrderBuyView(View):
     def post(self, _request, id: int, *_args, **_kwargs):
         order: m.Order = get_object_or_404(m.Order, id=id)
 
+        tax_rates = {}
+        if order.tax:
+            tax_rates["tax_rates"] = [order.tax.stripe_tax_rate_id]
+
+        discounts: t.Any = None
+        if order.discount:
+            coupon = stripe.Coupon.create(
+                percent_off=float(order.discount.percent), duration="once"
+            )
+            discounts = [{"coupon": coupon.id}]
+
         session = stripe.checkout.Session.create(
             payment_method_types=["card"],
             line_items=[  # pyright: ignore
@@ -63,14 +76,16 @@ class OrderBuyView(View):
                                 if x.item.description
                                 else {}
                             ),
-                            "metadata": {"id": order.pk},
+                            "metadata": {"id": x.item.pk},
                         },
                         "unit_amount": int(x.item.price * 100),
                     },
+                    **tax_rates,
                     "quantity": x.quantity,
                 }
                 for x in order.items.all()
             ],
+            discounts=discounts,
             mode="payment",
             success_url="https://google.com/",
             cancel_url="https://google.com/",

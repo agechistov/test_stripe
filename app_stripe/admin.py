@@ -9,6 +9,16 @@ class CurrencyAdmin(admin.ModelAdmin):
     list_select_related = ["currency"]
 
 
+@admin.register(m.Tax)
+class TaxAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(m.Discount)
+class DiscountAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(m.Item)
 class ItemAdmin(admin.ModelAdmin):
     list_display = [
