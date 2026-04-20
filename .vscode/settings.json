@@ -29,5 +29,8 @@
   "launches": {
     "run_f4": "main",
     "run_f5": "main"
-  }
+  },
+  "cSpell.words": [
+    "forloop"
+  ]
 }

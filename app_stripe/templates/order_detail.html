@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>Order id={{ order.pk }}</title>
+    <script src="https://js.stripe.com/dahlia/stripe.js"></script>
+  </head>
+  <body>
+    <h1>Order id={{ order.pk }}</h1>
+    {% for item in order.items.all %}
+      <h2>{{ item.quantity }} x {{ item.item.name }}</h1>
+      <p>{{ item.item.description }}</p>
+      <p>{{ item.quantity }} x {{ item.item.price }} {{ item.item.currency.value }} </p>
+    {% endfor %}
+    <form action="/buy/order/{{ order.pk }}" method="POST">
+      {% csrf_token %}
+      <button type="submit">Buy</button>
+    </form>
+  </body>
+</html>

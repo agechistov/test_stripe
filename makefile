@@ -6,7 +6,7 @@ tools:
 	ruff check --output-format concise --fix
 
 requirements:
-	uv export --frozen --output-file=project/requirements.txt --no-dev
+	uv export --frozen --output-file=requirements.txt --no-dev
 
 migrations:
 	uv run python manage.py makemigrations
@@ -18,7 +18,7 @@ su:
 	uv run python manage.py createsuperuser --noinput || true
 
 audit: requirements
-	uv run pip-audit -r project/requirements.txt
+	uv run pip-audit -r requirements.txt
 
 for_up: tools requirements migrations migrate su
 
