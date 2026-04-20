@@ -8,7 +8,7 @@ class Currency(m.Model):
         verbose_name_plural = "Currencies"
 
     def __str__(self) -> str:
-        return self.value  # type: ignore
+        return self.value
 
 
 class Item(m.Model):
@@ -18,4 +18,4 @@ class Item(m.Model):
     currency = m.ForeignKey(to="app_stripe.Currency", on_delete=m.PROTECT)
 
     def __str__(self) -> str:
-        return self.name  # type: ignore
+        return self.name
