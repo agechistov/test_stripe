@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 from django.db import models as m
 
 if TYPE_CHECKING:
-    from django.db.models.manager import RelatedManager
+    from django_stubs_ext.db.models.manager import RelatedManager
 
 
 class Currency(m.Model):
@@ -36,6 +36,9 @@ class Discount(m.Model):
 class Tax(m.Model):
     percent = m.DecimalField(max_digits=5, decimal_places=2)
     stripe_tax_rate_id = m.CharField(blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "Taxes"
 
     def __str__(self):
         return f"{self.percent}%"

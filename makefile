@@ -25,14 +25,8 @@ for_up: tools requirements migrations migrate su
 init_from_files: for_up
 	uv run python manage.py init_from_files
 
-upl: for_up
-	uv run python manage.py runserver 0.0.0.0:8000
-
-upd: for_up
-	docker-compose -f docker-compose.yml -f docker-compose.local.yml up --build web
-
-upp: for_up
-	TAG=latest docker-compose -f docker-compose.yml up --build web
+up:
+	docker-compose up --build --force-recreate
 
 test: for_up
 	uv run pytest

@@ -41,13 +41,6 @@ repos:
         require_serial: true
         files: \.py$
         stages: [pre-commit, pre-merge-commit, manual]
-      - id: pyright
-        name: pyright
-        entry: uv run pyright
-        language: system
-        require_serial: true
-        files: \.py$
-        stages: [pre-commit, pre-merge-commit, manual]
       - id: ty-check
         name: ty check
         entry: uv run ty check . --output-format=concise --no-progress

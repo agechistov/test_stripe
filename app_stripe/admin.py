@@ -1,3 +1,4 @@
+from admin_extra_buttons.api import ExtraButtonsMixin, link
 from django.contrib import admin
 from django.forms import BaseInlineFormSet, ValidationError
 
@@ -20,13 +21,18 @@ class DiscountAdmin(admin.ModelAdmin):
 
 
 @admin.register(m.Item)
-class ItemAdmin(admin.ModelAdmin):
+class ItemAdmin(ExtraButtonsMixin, admin.ModelAdmin):
     list_display = [
         "name",
         "description",
         "price",
         "currency",
     ]
+
+    @link(href=None, change_list=False)  # type: ignore
+    def redirect_to_checkout(self, button):
+        button.label = "REDIRECT TO CHECKOUT"
+        button.href = f"/item/{button.original.pk}"
 
 
 class OrderItemInlineFormSet(BaseInlineFormSet):
@@ -59,5 +65,10 @@ class OrderItemInline(admin.StackedInline):
 
 
 @admin.register(m.Order)
-class OrderAdmin(admin.ModelAdmin):
+class OrderAdmin(ExtraButtonsMixin, admin.ModelAdmin):
     inlines = [OrderItemInline]
+
+    @link(href=None, change_list=False)  # type: ignore
+    def redirect_to_checkout(self, button):
+        button.label = "REDIRECT TO CHECKOUT"
+        button.href = f"/order/{button.original.pk}"

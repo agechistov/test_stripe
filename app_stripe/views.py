@@ -21,7 +21,11 @@ class ItemBuyView(View):
                         "currency": item.currency.value,
                         "product_data": {
                             "name": item.name,
-                            "description": item.description,
+                            **(
+                                {"description": item.description}
+                                if item.description
+                                else {}
+                            ),
                             "metadata": {"id": item.pk},
                         },
                         "unit_amount": int(item.price * 100),
@@ -65,7 +69,7 @@ class OrderBuyView(View):
 
         session = stripe.checkout.Session.create(
             payment_method_types=["card"],
-            line_items=[  # pyright: ignore
+            line_items=[
                 {
                     "price_data": {
                         "currency": x.item.currency.value,

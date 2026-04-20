@@ -31,6 +31,8 @@
     "run_f5": "main"
   },
   "cSpell.words": [
-    "forloop"
+    "forloop",
+    "pgwait",
+    "whitenoise"
   ]
 }

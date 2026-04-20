@@ -6,16 +6,19 @@ readme = "README.md"
 requires-python = ">=3.14.0"
 dependencies = [
     "django>=6.0.4",
+    "django-admin-extra-buttons>=2.1.2",
+    "gunicorn>=25.3.0",
+    "pgwait>=0.4",
     "psycopg2-binary>=2.9.11",
     "python-dotenv>=1.2.2",
     "stripe>=15.0.1",
+    "whitenoise>=6.12.0",
 ]
 
 [dependency-groups]
 dev = [
     "django-types>=0.23.0",
     "pre-commit>=4.5.1",
-    "pyright>=1.1.408",
     "pytest>=9.0.3",
     "pytest-django>=4.12.0",
     "ruff>=0.15.11",
