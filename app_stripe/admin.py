@@ -7,7 +7,7 @@ from . import models as m
 
 @admin.register(m.Currency)
 class CurrencyAdmin(admin.ModelAdmin):
-    list_select_related = ["currency"]
+    pass
 
 
 @admin.register(m.Tax)
