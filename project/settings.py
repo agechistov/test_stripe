@@ -28,12 +28,8 @@ def _env_bool(name: str) -> bool:
 
 
 DEBUG = _env_bool("DEBUG")
-DONT_USE_IN_PRODUCTION__INIT_FROM_EXCEL_TRUNCATES_TABLES = _env_bool(
-    "DONT_USE_IN_PRODUCTION__INIT_FROM_EXCEL_TRUNCATES_TABLES",
-)
-DONT_USE_IN_PRODUCTION__DISABLE_CACHE = _env_bool(
-    "DONT_USE_IN_PRODUCTION__DISABLE_CACHE",
-)
+
+ALLOWED_HOSTS = [x.strip() for x in os.environ["ALLOWED_HOSTS"].split(",")]
 
 
 # Application definition
