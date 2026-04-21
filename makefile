@@ -1,5 +1,5 @@
 db:
-	docker-compose up -d db
+	docker compose up -d db
 
 tools:
 	ruff format
@@ -26,10 +26,13 @@ init_from_files: for_up
 	uv run python manage.py init_from_files
 
 up:
-	docker-compose up --build --force-recreate
+	docker compose up --build --force-recreate
+
+upd:
+	docker compose up --build --force-recreate -d
 
 test: for_up
 	uv run pytest
 
 down:
-	docker-compose down
+	docker compose down
